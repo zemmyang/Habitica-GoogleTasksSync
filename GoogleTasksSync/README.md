@@ -4,7 +4,7 @@ Do you like Google Tasks to keep everything in place but also want to level up y
 
 # Usage
 
-Change `Habitica.gs` variables with your API keys. Upload all the files to Google Apps script and create a trigger. Depending on the amount of tasks that you expect to update, you might want to run it every 5 or 10 minutes.
+Change `Habitica.gs` variables with your API keys. Upload all the files to Google Apps script and create a trigger that will run `main()` over a timer. I set mine to 5 minutes, but I have 50 tasks at a time on GTasks at most.
 
 # Future planned features
 
