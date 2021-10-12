@@ -2,7 +2,7 @@
  * Formatting the responses
  */
 
- function generate_gtasks_list(need){
+function generate_gtasks_list(need){
   var send_to_habitica = [];
   var list_of_ids = [];
   var completed_tasks = [];
@@ -14,6 +14,7 @@
       for (var j in value){
         var parent = value[j]['parent'];
         var title = value[j]['title'];
+
         var dict = {}
 
         if (typeof parent === 'undefined' || parent === null){
@@ -23,15 +24,12 @@
           dict['alias'] = value[j]['id']
           dict['notes'] = value[j]['notes']
           dict['date'] = value[j]['date']
-          // send_to_habitica.push(dict)
 
-          if(value[j]['completed']){
-            completed_tasks.push(dict)
-          }
-          else {
+          if(value[j]['completed']){ completed_tasks.push(dict) }
+          else { 
+            send_to_habitica.push(dict) 
             list_of_ids.push(value[j]['id'])
-            send_to_habitica.push(dict)
-          }
+            }
         }
         else {
           for (var k in value){
@@ -42,13 +40,12 @@
               dict['alias'] = value[j]['id']
               dict['notes'] = value[j]['notes']
               dict['date'] = value[j]['date']
-              // send_to_habitica.push(dict)
 
               if(value[j]['completed']){
                 completed_tasks.push(dict)
               } else {
+                send_to_habitica.push(dict) 
                 list_of_ids.push(value[j]['id'])
-                send_to_habitica.push(dict)
               }
             }
             

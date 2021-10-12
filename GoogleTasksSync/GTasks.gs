@@ -2,6 +2,10 @@
  * Helper functions for GTasks adapted from the Google Tasks API documentation
  */
 
+/**
+ * Returns the ID and name of every task list in the user's account.
+ * @return {Array.<Object>} The task list data.
+ */
 function getTaskLists() {
   var taskLists = Tasks.Tasklists.list().getItems();
   if (!taskLists) {
@@ -15,6 +19,11 @@ function getTaskLists() {
   });
 }
 
+/**
+ * Returns information about the tasks within a given task list.
+ * @param {String} taskListId The ID of the task list.
+ * @return {Array.<Object>} The task data.
+ */
 function getTasks(taskListId) {
   var tasks = Tasks.Tasks.list(taskListId).getItems();
   if (!tasks) {
@@ -34,6 +43,12 @@ function getTasks(taskListId) {
   });
 }
 
+/**
+ * Sets the completed status of a given task.
+ * @param {String} taskListId The ID of the task list.
+ * @param {String} taskId The ID of the task.
+ * @param {Boolean} completed True if the task should be marked as complete, false otherwise.
+ */
 function setCompleted(taskListId, taskId, completed) {
   var task = Tasks.newTask();
   if (completed) {
