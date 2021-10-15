@@ -2,6 +2,7 @@
  * Helper functions for Habitica adapted from the wiki
  */
 
+
 function list_habitica_tasks(need){
   var current_task_list = []
   var ids = []
@@ -47,7 +48,6 @@ function list_habitica_tasks(need){
     return aliases
   }
 }
- 
 
  function create_task(payload) {
   var habId = "YOUR ID HERE";
@@ -66,17 +66,8 @@ function list_habitica_tasks(need){
    }
 
     var response = UrlFetchApp.fetch(url, params);
-    //  Logger.log(response);
+    return response
  }
-
-function test(){
-  var payload = {
-    "text": "Test4",
-    "type": "todo"
-        }
-
-  create_task(payload)
-}
 
  function mark_task_as_done(task_id) {
   var habId = "YOUR ID HERE";
@@ -96,7 +87,7 @@ function test(){
    var params = paramsTemplate;
  
     var response = UrlFetchApp.fetch(url, params);
-     Logger.log(response);
+    return response
  }
 
 
@@ -119,7 +110,7 @@ function test(){
    var params = paramsTemplate;
  
     var response = UrlFetchApp.fetch(url, params);
-     Logger.log(response);
+    return response
  }
 
 

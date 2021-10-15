@@ -7,7 +7,11 @@
  * @return {Array.<Object>} The task list data.
  */
 function getTaskLists() {
-  var taskLists = Tasks.Tasklists.list().getItems();
+  var optionalArgs = {
+    'maxResults': 100
+  };
+
+  var taskLists = Tasks.Tasklists.list(optionalArgs).getItems();
   if (!taskLists) {
     return [];
   }
@@ -25,22 +29,29 @@ function getTaskLists() {
  * @return {Array.<Object>} The task data.
  */
 function getTasks(taskListId) {
-  var tasks = Tasks.Tasks.list(taskListId).getItems();
-  if (!tasks) {
+  var optionalArgs = {
+    maxResults: 100
+  };
+
+  var tasks = Tasks.Tasks.list(taskListId, optionalArgs);
+  if (tasks.items) {
+    var item_list = []
+    for (var i = 0; i < tasks.items.length; i++) {
+      var task = tasks.items[i];
+      var dict = {
+        id: task.id,
+        title: task.title,
+        parent: task.parent,
+        date: task.due,
+        notes: task.notes,
+        completed: Boolean(task.completed)
+      }
+      item_list.push(dict)
+    }
+    return item_list
+  } else {
     return [];
   }
-  return tasks.map(function(task) {
-    return {
-      id: task.getId(),
-      title: task.getTitle(),
-      parent: task.parent,
-      date: task.due,
-      notes: task.getNotes(),
-      completed: Boolean(task.getCompleted())
-    };
-  }).filter(function(task) {
-    return task.title;
-  });
 }
 
 /**
