@@ -6,7 +6,7 @@ Limited to 100 tasks per tasklist theoretically, but you'll hit the Google Apps 
 
 # Usage
 
-Change `Habitica.gs` variables with your API keys. Upload all the files to Google Apps script and create a trigger that will run `main()` over a timer. I set mine to 5 minutes, but I have 50 tasks at a time on GTasks at most.
+Change `Habitica.gs` variables with your API keys. Upload all the files to Google Apps script and create a trigger that will run `main()` over a timer. I set mine to 5 minutes.
 
 # Future planned features
 
@@ -17,5 +17,5 @@ Change `Habitica.gs` variables with your API keys. Upload all the files to Googl
 
 # Changelog
   
-v1.1.0 - Works in longer testing, now supports up to 100 tasks per task list. 
+v1.1.0 - Works in longer testing, now supports up to 100 tasks per task list.  
 v1.0.0-alpha - Works in testing but not completely tested yet
