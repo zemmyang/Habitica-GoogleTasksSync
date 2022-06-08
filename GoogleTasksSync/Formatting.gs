@@ -25,8 +25,9 @@ function generate_gtasks_list(need){
         dict['notes'] = value[j]['notes']
         dict['date'] = value[j]['date']
 
-        if(value[j]['completed']){ completed_tasks.push(dict) }
-        else {
+        if(value[j]['completed']){
+          completed_tasks.push(dict)
+        } else {
           send_to_habitica.push(dict)
           list_of_ids.push(value[j]['id'])
         }
