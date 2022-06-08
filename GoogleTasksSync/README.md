@@ -6,7 +6,19 @@ Limited to 100 tasks per tasklist theoretically, but you'll hit the Google Apps 
 
 # Usage
 
-Change `Habitica.gs` variables with your API keys. Upload all the files to Google Apps script and create a trigger that will run `main()` over a timer. I set mine to 5 minutes.
+1. Download the `*.gs` files.
+2. Find your Habitica API User ID and API Token, available at [this page](https://habitica.com/user/settings/api).
+3. Populate the `Habitica.gs` variables `habId` and `habToken` with your API User ID and API Token, respectively.  Note that each occurs four times. 
+4. Upload, or copy and paste, all the files into a [Google Apps Script](https://script.google.com/) project.
+5. Add the "Tasks API" service to the Apps Script project.
+    * From within the project, select the "Services" + then scroll down and add the "Tasks API" service.
+6. Add a trigger to the Apps Script project to run  `main` on a timer, e.g., every 5 minutes.  
+    * From within the project, select the clock icon on left then the "+ Add Trigger" button on the bottom right.
+        * Choose which function to run: "main"
+        * Choose which deployment should run: "Head" (the only option)
+        * Select event source: "Time-driven"
+        * Select type of time based trigger: "Minutes timer" (adjust as desired)
+        * Select minute interval: "Every 5 minutes" (adjust as desired)
 
 # Future planned features
 
