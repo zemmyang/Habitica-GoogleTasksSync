@@ -19,15 +19,16 @@ function list_habitica_tasks(need){
     }
   }
   var params = paramsTemplate;
-
   var response = UrlFetchApp.fetch(url, params);
   var data = JSON.parse(response.getContentText());
 
   if (data.success){
     for(var item in data.data){
-      var dict = {id: data.data[item].id,
-                  alias: data.data[item].alias,
-                  date: data.data[item].date }
+      var dict = {
+        id: data.data[item].id,
+        alias: data.data[item].alias,
+        date: data.data[item].date
+      }
       if (data.data[item].type === 'todo'){
         current_task_list.push(dict)
         ids.push(data.data[item].id)
@@ -50,28 +51,25 @@ function list_habitica_tasks(need){
 function create_task(payload) {
   var habId = "YOUR ID HERE";
   var habToken = "YOUR TOKEN HERE";
+  var url = "https://habitica.com/api/v3/tasks/user"
 
-   var url = "https://habitica.com/api/v3/tasks/user"
-
-   //set paramaters
-   var params = {
-     "method" : "post",
-     "headers" : {
-       "x-api-user" : habId,
-       "x-api-key" : habToken
-     },
-     "payload": payload
-   }
-
-    var response = UrlFetchApp.fetch(url, params);
-    return response
+  //set paramaters
+  var params = {
+    "method" : "post",
+    "headers" : {
+      "x-api-user" : habId,
+      "x-api-key" : habToken
+    },
+    "payload": payload
+  }
+  var response = UrlFetchApp.fetch(url, params);
+  return response
 }
 
 function mark_task_as_done(task_id) {
   var habId = "YOUR ID HERE";
   var habToken = "YOUR TOKEN HERE";
   var url = "https://habitica.com/api/v3/tasks/" + task_id + "/score/up"
-
   var paramsTemplate = {
     "method" : "post",
     "headers" : {
@@ -83,18 +81,14 @@ function mark_task_as_done(task_id) {
     }
   }
   var params = paramsTemplate;
-
   var response = UrlFetchApp.fetch(url, params);
-    return response
+  return response
 }
-
-
 
 function update_task_date(task_id, new_date) {
   var habId = "YOUR ID HERE";
   var habToken = "YOUR TOKEN HERE";
   var url = "https://habitica.com/api/v3/tasks/" + task_id
-
   var paramsTemplate = {
     "method" : "put",
     "headers" : {
@@ -106,7 +100,6 @@ function update_task_date(task_id, new_date) {
     }
   }
   var params = paramsTemplate;
-
   var response = UrlFetchApp.fetch(url, params);
   return response
 }
