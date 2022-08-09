@@ -1,7 +1,7 @@
 /**
  * Helper functions for Habitica adapted from the wiki
  */
-
+ 
 const habId = "4894c584-9889-4447-a784-2d693790a6c5";
 const habToken = "53d0548c-ba2f-438a-8598-1ad4f2f1e76a";
 
@@ -97,4 +97,54 @@ function update_task_date(task_id, new_date) {
   var params = paramsTemplate;
   var response = UrlFetchApp.fetch(url, params);
   return response
+}
+
+function list_habitica_tags(){
+  var current_tags_list = []
+  var url = 'https://habitica.com/api/v3/tags'
+
+  //set paramaters
+  var paramsTemplate = {
+    "method" : "get",
+    "headers" : {
+      "x-api-user" : habId,
+      "x-api-key" : habToken
+    }
+  }
+  var params = paramsTemplate;
+  var response = UrlFetchApp.fetch(url, params);
+  var data = JSON.parse(response.getContentText());
+
+  if (data.success){
+    for(var item in data.data){
+      var dict = {
+        id: data.data[item].id,
+        name: data.data[item].name
+      }
+      current_tags_list.push(dict)
+    }
+  } else {
+    Logger.log(response)
+  }
+
+  return current_tags_list
+}
+
+function create_tag(tag_name) {
+  var url = "https://habitica.com/api/v3/tags"
+  var paramsTemplate = {
+    "method" : "post",
+    "headers" : {
+      "x-api-user" : habId,
+      "x-api-key" : habToken
+    },
+    "payload": {
+      "name": tag_name
+    }
+  }
+  var params = paramsTemplate;
+  var response = UrlFetchApp.fetch(url, params);
+  var data = JSON.parse(response.getContentText());
+  
+  return data.data['id']
 }

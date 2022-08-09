@@ -2,7 +2,7 @@
  * Formatting the responses
  */
 
-function generate_gtasks_list(need){
+function generate_gtasks_list(need, tags){
   var send_to_habitica = [];
   var list_of_ids = [];
   var completed_tasks = [];
@@ -19,11 +19,12 @@ function generate_gtasks_list(need){
 
       if (typeof parent === 'undefined' || parent === null){
         // Logger.log(i['name'] + ": " + title + value[j]['id']); // top-level tasks
-        dict['text'] = i['name'] + ": " + title
+        dict['text'] = title
         dict['type'] = "todo"
         dict['alias'] = value[j]['id']
         dict['notes'] = value[j]['notes']
         dict['date'] = value[j]['date']
+        dict['tags'] = tags[i['name']]
 
         if(value[j]['completed']){
           completed_tasks.push(dict)
@@ -35,11 +36,12 @@ function generate_gtasks_list(need){
         for (var k in value){
           if (value[k]['id'] === parent){
             // Logger.log(i['name'] + ": " + value[k]['title'] + ": " + value[j]['title'] + value[j]['id']); // second-level tasks
-            dict['text'] = i['name'] + ": " + value[k]['title'] + ": " + value[j]['title']
+            dict['text'] = value[k]['title'] + ": " + value[j]['title']
             dict['type'] = "todo"
             dict['alias'] = value[j]['id']
             dict['notes'] = value[j]['notes']
             dict['date'] = value[j]['date']
+            dict['tags'] = tags[i['name']]
 
             if(value[j]['completed']){
               completed_tasks.push(dict)
