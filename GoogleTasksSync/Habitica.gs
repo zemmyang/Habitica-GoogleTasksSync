@@ -2,12 +2,13 @@
  * Helper functions for Habitica adapted from the wiki
  */
 
+const habId = "4894c584-9889-4447-a784-2d693790a6c5";
+const habToken = "53d0548c-ba2f-438a-8598-1ad4f2f1e76a";
+
 function list_habitica_tasks(need){
   var current_task_list = []
   var ids = []
   var aliases = []
-  var habId = "YOUR ID HERE";
-  var habToken = "YOUR TOKEN HERE";
   var url = 'https://habitica.com/api/v3/tasks/user'
 
   //set paramaters
@@ -49,8 +50,6 @@ function list_habitica_tasks(need){
 }
 
 function create_task(payload) {
-  var habId = "YOUR ID HERE";
-  var habToken = "YOUR TOKEN HERE";
   var url = "https://habitica.com/api/v3/tasks/user"
 
   //set paramaters
@@ -67,8 +66,6 @@ function create_task(payload) {
 }
 
 function mark_task_as_done(task_id) {
-  var habId = "YOUR ID HERE";
-  var habToken = "YOUR TOKEN HERE";
   var url = "https://habitica.com/api/v3/tasks/" + task_id + "/score/up"
   var paramsTemplate = {
     "method" : "post",
@@ -86,8 +83,6 @@ function mark_task_as_done(task_id) {
 }
 
 function update_task_date(task_id, new_date) {
-  var habId = "YOUR ID HERE";
-  var habToken = "YOUR TOKEN HERE";
   var url = "https://habitica.com/api/v3/tasks/" + task_id
   var paramsTemplate = {
     "method" : "put",
