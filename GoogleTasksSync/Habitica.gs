@@ -1,7 +1,7 @@
 /**
  * Helper functions for Habitica adapted from the wiki
  */
- 
+
 const habId = "4894c584-9889-4447-a784-2d693790a6c5";
 const habToken = "53d0548c-ba2f-438a-8598-1ad4f2f1e76a";
 
@@ -57,9 +57,10 @@ function create_task(payload) {
     "method" : "post",
     "headers" : {
       "x-api-user" : habId,
-      "x-api-key" : habToken
+      "x-api-key" : habToken,
+      "content-type": "application/json"
     },
-    "payload": payload
+    "payload": JSON.stringify(payload)
   }
   var response = UrlFetchApp.fetch(url, params);
   return response
