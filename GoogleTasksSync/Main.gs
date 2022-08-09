@@ -38,12 +38,16 @@ function main() {
   // }
 
   for (const [idx, i] of incomplete_gtasks_formatted.entries()) {
-    try {
-      Utilities.sleep(loop_pause_in_sec*1000);
-      Logger.log("Adding: " + incomplete_gtasks_formatted[idx]['text'])
-      var response = create_task(incomplete_gtasks_formatted[idx])
-    } catch (e) {
-      Logger.log(e)
+    if (!aliases_currently_in_habitica.includes(incomplete_gtasks_formatted[idx]['alias'])) {
+      try {
+        Utilities.sleep(loop_pause_in_sec*1000);
+        Logger.log("Adding: " + incomplete_gtasks_formatted[idx]['text'])
+        var response = create_task(incomplete_gtasks_formatted[idx])
+      } catch (e) {
+        Logger.log(e)
+      }
+    } else {
+      Logger.log("Skipping: " + incomplete_gtasks_formatted[idx]['text'])
     }
   }
 
