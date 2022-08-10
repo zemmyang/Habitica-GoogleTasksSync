@@ -2,12 +2,13 @@
  * Helper functions for Habitica adapted from the wiki
  */
 
+const habId = "4894c584-9889-4447-a784-2d693790a6c5";
+const habToken = "53d0548c-ba2f-438a-8598-1ad4f2f1e76a";
+
 function list_habitica_tasks(need){
   var current_task_list = []
   var ids = []
   var aliases = []
-  var habId = "YOUR ID HERE";
-  var habToken = "YOUR TOKEN HERE";
   var url = 'https://habitica.com/api/v3/tasks/user'
 
   //set paramaters
@@ -49,8 +50,6 @@ function list_habitica_tasks(need){
 }
 
 function create_task(payload) {
-  var habId = "YOUR ID HERE";
-  var habToken = "YOUR TOKEN HERE";
   var url = "https://habitica.com/api/v3/tasks/user"
 
   //set paramaters
@@ -58,17 +57,16 @@ function create_task(payload) {
     "method" : "post",
     "headers" : {
       "x-api-user" : habId,
-      "x-api-key" : habToken
+      "x-api-key" : habToken,
+      "content-type": "application/json"
     },
-    "payload": payload
+    "payload": JSON.stringify(payload)
   }
   var response = UrlFetchApp.fetch(url, params);
   return response
 }
 
 function mark_task_as_done(task_id) {
-  var habId = "YOUR ID HERE";
-  var habToken = "YOUR TOKEN HERE";
   var url = "https://habitica.com/api/v3/tasks/" + task_id + "/score/up"
   var paramsTemplate = {
     "method" : "post",
@@ -86,8 +84,6 @@ function mark_task_as_done(task_id) {
 }
 
 function update_task_date(task_id, new_date) {
-  var habId = "YOUR ID HERE";
-  var habToken = "YOUR TOKEN HERE";
   var url = "https://habitica.com/api/v3/tasks/" + task_id
   var paramsTemplate = {
     "method" : "put",
@@ -102,4 +98,54 @@ function update_task_date(task_id, new_date) {
   var params = paramsTemplate;
   var response = UrlFetchApp.fetch(url, params);
   return response
+}
+
+function list_habitica_tags(){
+  var current_tags_list = []
+  var url = 'https://habitica.com/api/v3/tags'
+
+  //set paramaters
+  var paramsTemplate = {
+    "method" : "get",
+    "headers" : {
+      "x-api-user" : habId,
+      "x-api-key" : habToken
+    }
+  }
+  var params = paramsTemplate;
+  var response = UrlFetchApp.fetch(url, params);
+  var data = JSON.parse(response.getContentText());
+
+  if (data.success){
+    for(var item in data.data){
+      var dict = {
+        id: data.data[item].id,
+        name: data.data[item].name
+      }
+      current_tags_list.push(dict)
+    }
+  } else {
+    Logger.log(response)
+  }
+
+  return current_tags_list
+}
+
+function create_tag(tag_name) {
+  var url = "https://habitica.com/api/v3/tags"
+  var paramsTemplate = {
+    "method" : "post",
+    "headers" : {
+      "x-api-user" : habId,
+      "x-api-key" : habToken
+    },
+    "payload": {
+      "name": tag_name
+    }
+  }
+  var params = paramsTemplate;
+  var response = UrlFetchApp.fetch(url, params);
+  var data = JSON.parse(response.getContentText());
+  
+  return data.data['id']
 }

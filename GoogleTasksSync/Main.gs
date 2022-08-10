@@ -3,30 +3,51 @@ function main() {
 
   var tasks_currently_in_habitica = list_habitica_tasks('current_task_list')
   var aliases_currently_in_habitica = list_habitica_tasks('aliases')
+  var tags_currently_in_habitica = list_habitica_tags()
+  let tag_ids_currently_in_habitica = Object.fromEntries(tags_currently_in_habitica.map(({ name, id }) => [name, id]));
 
-  var aliases_currently_in_gtasks = generate_gtasks_list('list_of_ids')
-  var completed_gtasks = generate_gtasks_list('completed_tasks')
-  var incomplete_gtasks_formatted = generate_gtasks_list('send_to_habitica')
+  var aliases_currently_in_gtasks = generate_gtasks_list('list_of_ids', tag_ids_currently_in_habitica)
+  var completed_gtasks = generate_gtasks_list('completed_tasks', tag_ids_currently_in_habitica)
+  var incomplete_gtasks_formatted = generate_gtasks_list('send_to_habitica', tag_ids_currently_in_habitica)
+
+
+  // get task lists in gtasks that are not as tags in habitica and add those
+  for (const list of getTaskLists()) {
+    if (!(list['name'] in tag_ids_currently_in_habitica)) {
+      try {
+        Utilities.sleep(loop_pause_in_sec*1000);
+        Logger.log("Creating tag: " + list['name'])
+        var tag_id = create_tag(list['name'])
+        tag_ids_currently_in_habitica[list['name'] = tag_id]
+      } catch (e) {
+        Logger.log(e)
+      }
+    }
+  }
 
   // get incompleted tasks in gtasks that are not in habitica and add those
   // let difference = aliases_currently_in_gtasks.filter(x => !aliases_currently_in_habitica.includes(x));
   // for (const [idx, i] of difference.entries()) {
-  //     Utilities.sleep(loop_pause_in_sec*1000);
-  //     try {
-  //       create_task(difference[idx])
-  //       Logger.log(difference[idx])
-  //     } catch {
-  //       Logger.log("Skipping: " + difference[idx])
-  //     }
+  //   Utilities.sleep(loop_pause_in_sec*1000);
+  //   try {
+  //     create_task(difference[idx])
+  //     Logger.log(difference[idx])
+  //   } catch {
+  //     Logger.log("Skipping: " + difference[idx])
   //   }
+  // }
 
   for (const [idx, i] of incomplete_gtasks_formatted.entries()) {
-    try {
-      Utilities.sleep(loop_pause_in_sec*1000);
-      Logger.log("Adding: " + incomplete_gtasks_formatted[idx]['text'])
-      var response = create_task(incomplete_gtasks_formatted[idx])
-    } catch (e) {
-      Logger.log(e)
+    if (!aliases_currently_in_habitica.includes(incomplete_gtasks_formatted[idx]['alias'])) {
+      try {
+        Utilities.sleep(loop_pause_in_sec*1000);
+        Logger.log("Adding: " + incomplete_gtasks_formatted[idx]['text'])
+        var response = create_task(incomplete_gtasks_formatted[idx])
+      } catch (e) {
+        Logger.log(e)
+      }
+    } else {
+      Logger.log("Skipping: " + incomplete_gtasks_formatted[idx]['text'])
     }
   }
 
