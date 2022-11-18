@@ -1,10 +1,14 @@
-# Vardonir/Zemmy's Habitica Scripts
-An assortment of Habitica scripts for various purposes
+# Habitica Scripts
 
-## Completed
+An assortment of Habitica-related scripts for various purposes. More details in the README file in each folder.
 
-* [GoogleTasksSync](https://github.com/zemmyang/habitica_scripts/tree/master/GoogleTasksSync) (v1.2.0) - script to **one-way** send To-dos from Google Tasks to Habitica, mark them as complete, and update the due date
+## In development
 
-## In-progress
+* [GoogleTasksSync](https://github.com/zemmyang/habitica_scripts/tree/master/GoogleTasksSync) - script to **one-way** send To-dos from Google Tasks to Habitica. 
 
-* None yet
+## Planned
+
+No ETA.
+
+* Something similar with Google Fit (e.g., walk X steps, tick off a habit automatically)
+* Integration with [Tasker](https://tasker.joaoapps.com/) - primairly a way to unblock certain apps for X minutes based on how much gold you have
