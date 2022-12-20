@@ -1,5 +1,6 @@
 const gtasksOptionalArgs = {
-    'maxResults': scriptProperties.getProperty("gtasks_maxresults")
+    'maxResults': scriptProperties.getProperty("gtasks_maxresults"),
+    'showHidden':true
 };
 let gtasksListCompleted = [];
 let gtasksListNotCompleted = [];
