@@ -35,8 +35,8 @@ function buildRequest(method, url, payload){
    var params = {
      "method" : method,
      "headers" : {
-       "x-api-user" : scriptProperties.getProperty("habitica_userid"), 
-       "x-api-key" : scriptProperties.getProperty("habitica_apikey")
+       "x-api-user" : PropertiesService.getScriptProperties().getProperty("habitica_userid"), 
+       "x-api-key" : PropertiesService.getScriptProperties().getProperty("habitica_apikey")
      },
      "muteHttpExceptions": true
    }
@@ -44,15 +44,15 @@ function buildRequest(method, url, payload){
    var params = {
      "method" : method,
      "headers" : {
-       "x-api-user" : scriptProperties.getProperty("habitica_userid"), 
-       "x-api-key" : scriptProperties.getProperty("habitica_apikey")
+       "x-api-user" : PropertiesService.getScriptProperties().getProperty("habitica_userid"), 
+       "x-api-key" : PropertiesService.getScriptProperties().getProperty("habitica_apikey")
      },
      "payload": payload,
      "muteHttpExceptions": true
    }
   }
 
-    var response = UrlFetchApp.fetch(scriptProperties.getProperty("habitica_apiurl") + url, params);
+    var response = UrlFetchApp.fetch(PropertiesService.getScriptProperties().getProperty("habitica_apiurl") + url, params);
     return response
 }
 
@@ -66,7 +66,7 @@ function getTags(){
       tagList.push(new HabiticaTag(t.name, t.id));
     }
   } else {
-    Logger.log(response);
+    Logger.log("Error in taglistResponse request: %s",taglistResponse);
   }
   return tagList;
 }
@@ -100,7 +100,7 @@ function getTodosFromHabitica(){
       }
     }
   } else {
-    Logger.log(todolistResponse);
+    Logger.log("Error in todolistResponse request: %s",todolistResponse);
   }
 
   // return taskList;
