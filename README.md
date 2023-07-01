@@ -1,5 +1,11 @@
 # Google Tasks -> Habitica One-way Sync
 
+As of 1 July 2023, this project is no longer being maintained. 
+
+I don't really use Habitica anymore, sorry.
+
+## Original readme follows
+
 Do you like Google Tasks to keep everything in place but also want to level up your character in Habitica? This tool copies all of your Google Tasks to Habitica and checks if any of the GTasks are updated/marked as done and marks the corresponding Habitica todo accordingly.
 
 Limited to 100 tasks per tasklist theoretically, but you'll hit the Google Apps Script runtime limit at that point. Best to limit it at around 50 tasks total (including completed tasks)
